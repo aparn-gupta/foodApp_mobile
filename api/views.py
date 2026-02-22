@@ -58,6 +58,47 @@ def options(req):
 
 
 
+def loadDishes(request):
+
+    tastePreferences = request.GET.get("taste")
+
+    regionPreferences = request.GET.get("region")
+    caloriePreferences = request.GET.get("calories")
+
+    cookingMethodPreferences = request.GET.get("cooking_method")
+    ingredientPreferences = request.GET.get("ingredients")
+
+    filter = {}
+
+    if tastePreferences:
+        filter["taste"] = tastePreferences
+
+    if regionPreferences:
+        filter["region"] = regionPreferences
+
+    if caloriePreferences:
+        filter["calories"] = caloriePreferences
+
+    if cookingMethodPreferences:
+        filter["cooking_method"] = cookingMethodPreferences
+
+    # if ingredientPreferences:
+    #     filter["ingredients"] = ingredientPreferences
+
+
+    queryset = Food.objects.filter(**filter)
+
+    serializer = FoodSerializer(queryset, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+
+
+
+
+
+
+
 
 
 
