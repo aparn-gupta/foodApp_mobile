@@ -34,7 +34,7 @@ def options(req):
 
     if requestedOption != 'ingredients':
 
-      queryset =   Food.objects.values_list(requestedOption, flat=True).distinct()
+      queryset =   Food.objects.values_list(requestedOption, flat=True).distinct().order_by(requestedOption)
 
     else:
 
@@ -65,7 +65,11 @@ def loadDishes(request):
     regionPreferences = request.GET.get("region")
     caloriePreferences = request.GET.get("calories")
 
+
     cookingMethodPreferences = request.GET.get("cooking_method")
+    prepTimePreferences = request.GET.get("prep_time")
+
+
     ingredientPreferences = request.GET.get("ingredients")
 
     filter = {}
@@ -77,7 +81,16 @@ def loadDishes(request):
         filter["region"] = regionPreferences
 
     if caloriePreferences:
-        filter["calories"] = caloriePreferences
+        caloriePreferencesMin, caloriePreferencesMax = caloriePreferences.split("-")
+
+        filter["calories__gte"] = int(caloriePreferencesMin)
+        filter["calories__lte"] = int(caloriePreferencesMax)
+
+    if prepTimePreferences:
+        prepTimePreferencesMin, prepTimePreferencesMax = prepTimePreferences.split("-")
+
+        filter["prep_time__gte"] = int(prepTimePreferencesMin)
+        filter["prep_time__lte"] = int(prepTimePreferencesMax)
 
     if cookingMethodPreferences:
         filter["cooking_method"] = cookingMethodPreferences
