@@ -1,5 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 class Food(models.Model):
     name = models.CharField(max_length=400)
@@ -25,6 +27,22 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+
+class User(AbstractUser):
+    pass
+    # role = models.CharField(max_length=100, blank=True, null=True)
+    # phone = models.CharField(max_length=100, blank=True, null=True)
+
+
+   
+    
+
+
+
+    
     
 
 

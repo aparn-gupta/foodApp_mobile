@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'django.contrib.postgres',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework.authtoken'
 
 
 
@@ -148,3 +149,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+
+AUTH_USER_MODEL = 'api.User'
+
+
