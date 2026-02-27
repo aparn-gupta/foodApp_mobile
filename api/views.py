@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Food
-from .serializers import FoodSerializer
+from .models import Food, User
+from .serializers import FoodSerializer, UserSerializer
 from django.contrib.postgres.search import SearchQuery
 from django.db.models import Func, F
 from rest_framework.response import Response
@@ -18,6 +18,13 @@ class FoodDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
     lookup_field = "id"
+
+
+class AllUsers(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = "id"
+
 
 
 
