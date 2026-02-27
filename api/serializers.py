@@ -13,4 +13,4 @@ class FoodSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "password"]
+        fields = ["id", "username", "password", "email", "first_name", "last_name"]
