@@ -6,11 +6,12 @@ from .serializers import FoodSerializer, UserSerializer
 from django.contrib.postgres.search import SearchQuery
 from django.db.models import Func, F
 from rest_framework.response import Response
-
+from rest_framework.permissions import AllowAny
 
 class AllFood(generics.ListCreateAPIView):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+   
 # Create your views here.
 
 
@@ -20,10 +21,13 @@ class FoodDetails(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = "id"
 
 
+
 class AllUsers(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
     lookup_field = "id"
+    permission_classes = [AllowAny]
 
 
 
@@ -77,7 +81,9 @@ def loadDishes(request):
     prepTimePreferences = request.GET.get("prep_time")
 
 
-    ingredientPreferences = request.GET.get("ingredients")
+    ingredientPreferences = request.GET.getlist("ingredients")
+
+    print(ingredientPreferences)
 
     filter = {}
 
@@ -102,8 +108,8 @@ def loadDishes(request):
     if cookingMethodPreferences:
         filter["cooking_method"] = cookingMethodPreferences
 
-    # if ingredientPreferences:
-    #     filter["ingredients"] = ingredientPreferences
+    if len(ingredientPreferences):
+        filter["main_ingredients__overlap"] = ingredientPreferences
 
 
     queryset = Food.objects.filter(**filter)
