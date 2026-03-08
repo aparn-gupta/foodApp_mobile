@@ -1,8 +1,7 @@
 # Food Discovery API (Django Backend)
 
-Backend service for a food discovery application that allows users to explore dish options based on multiple preference filters such as taste, ingredients, calories, and preparation time.
+Backend service for a food discovery application that allows users to explore dish options based on multiple preference filters such as taste, origin, ingredients, cooking_method, calories, and preparation time.
 
-The API is built with **Django**, **Django REST Framework**, and **PostgreSQL**, and provides endpoints for authentication and dish discovery.
 
 ---
 
@@ -25,28 +24,10 @@ The API is built with **Django**, **Django REST Framework**, and **PostgreSQL**,
 - Structured relational data using PostgreSQL
 - Query handling using Django ORM
 
----
+--
 
-## Core Functionality
+Based on the selected filters, the API returns relevant dish results with detailed information along with its recipe.
 
-The API allows users to discover dishes based on multiple criteria.
-
-Supported filters include:
-
-- Taste profile
-- Reason / meal type
-- Ingredients
-- Calories
-- Preparation time
-
-Based on the selected filters, the API returns dish results with detailed information such as:
-
-- Dish name
-- Cuisine / region
-- Ingredients
-- Calories
-- Preparation time
-- Additional metadata related to the dish
 
 ---
 
@@ -59,22 +40,11 @@ Authentication is handled using **JWT tokens**, and all database interactions ar
 
 ---
 
-## Authentication
 
-Authentication is implemented using **JWT tokens** via **SimpleJWT**.
-
-Typical authentication flow:
-
-1. User registers or logs in
-2. API returns access and refresh tokens
-3. Authenticated requests include the access token in headers
-
----
 
 ## Notes
 
 Currently in Progress
 
-This repository contains the backend service responsible for handling authentication, filtering logic, and data retrieval for the food discovery application.
 
 Frontend (React Native) Repo: https://github.com/aparn-gupta/what-to-eat-today.git
